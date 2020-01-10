@@ -4,4 +4,4 @@ Custom Control for the french address.
 
 # Demo 
 
-![alt text](./screen.gif)
+![alt text](img/screen.gif)
