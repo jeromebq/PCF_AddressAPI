@@ -1,0 +1,19 @@
+2020-01-10 13:57:54.607 - Info	
+Packing C:\Users\jbecu\Documents\PCF\AdresseAPI\AddressAPI_Solution\obj\Debug\ to bin\Debug\AddressAPI_Solution.zip
+
+2020-01-10 13:57:54.627 - Info	Processing Component: Entities
+2020-01-10 13:57:54.631 - Info	Processing Component: Roles
+2020-01-10 13:57:54.635 - Info	Processing Component: Workflows
+2020-01-10 13:57:54.636 - Info	Processing Component: FieldSecurityProfiles
+2020-01-10 13:57:54.636 - Info	Processing Component: Templates
+2020-01-10 13:57:54.637 - Info	Processing Component: EntityMaps
+2020-01-10 13:57:54.638 - Info	Processing Component: EntityRelationships
+2020-01-10 13:57:54.646 - Info	Processing Component: OrganizationSettings
+2020-01-10 13:57:54.647 - Info	Processing Component: optionsets
+2020-01-10 13:57:54.647 - Info	Processing Component: CustomControls
+2020-01-10 13:57:54.659 - Info	 - AdresseAPI.AdresseAPI
+2020-01-10 13:57:54.666 - Info	Processing Component: SolutionPluginAssemblies
+2020-01-10 13:57:54.668 - Info	Processing Component: EntityDataProviders
+2020-01-10 13:57:54.727 - Info	
+Unmanaged Pack complete.
+
