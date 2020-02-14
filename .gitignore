@@ -9,6 +9,5 @@
 # output directory
 /out
 
-# msbuild output directories
-/bin
+# MS Build 
 /obj
