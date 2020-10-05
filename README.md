@@ -10,8 +10,6 @@ Installation step by step :
 4 - On the tab "Control" add the PCF and select in which case you want display it  
 5 - Below you need to select fields corresponding to the postal code and the city  
 6 - Publish  
-
- NOTE : The custom control works only with new address field of type text 
  
 ![alt text](img/config.png)
 
