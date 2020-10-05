@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="AdresseAPI" constructor="AdresseAPI" version="2.0.0.0" display-name-key="AdresseAPI" description-key="AdresseAPI description" control-type="standard">
+  <control namespace="AdresseAPI" constructor="AdresseAPI" version="0.0.1" display-name-key="AdresseAPI" description-key="AdresseAPI description" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
         <property name="address_line_1" display-name-key="address_line_1" description-key="address_line_1" of-type="SingleLine.Text" usage="bound" required="true" />
     <property name="city" display-name-key="city" description-key="city" of-type="SingleLine.Text" usage="bound" required="true" />
