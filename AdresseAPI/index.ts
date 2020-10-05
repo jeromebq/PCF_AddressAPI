@@ -56,15 +56,20 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         this.inputElement.setAttribute("type", "text");
         this.inputElement.setAttribute("class", "InputAddress");
         //this.inputElement.setAttribute("value", "");
-        this.inputElement.value = this._address_line_1 == "" ? "---" : this._address_line_1;
+        if(this._address_line_1 != "" && this._address_line_1 != undefined)
+            this.inputElement.value = this._address_line_1;
+        else
+            this._address_line_1 = "---" ;
         this.inputElement.addEventListener("keyup", this.onKeyUp.bind(this));
 
 
         this.inputElement.addEventListener("focusin", () => {
-        this.inputElement.className = "InputAddressFocused";
+            this.inputElement.className = "InputAddressFocused";
+            if (this.inputElement.value == "---") this.inputElement.value = "";
         });
         this.inputElement.addEventListener("focusout", () => {
             this.inputElement.className = "InputAddress";
+            if (this.inputElement.value == "") this.inputElement.value = "---";
         });
 
         
@@ -150,7 +155,12 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 	public updateView(context: ComponentFramework.Context<IInputs>): void
     {
         this._context = context;
-        this.inputElement.value = this._value;
+        if(this._value != "" && this._value != undefined)
+            this.inputElement.value = this._value;
+        else
+            this.inputElement.value = "---" ;
+            
+        // this.inputElement.value = this._value;
         this._container.appendChild(this.inputElement);
 	}
 

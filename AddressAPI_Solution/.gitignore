@@ -2,3 +2,5 @@
 
 # msbuild output directories
 /obj
+rebuild.bat
+managed.bat
