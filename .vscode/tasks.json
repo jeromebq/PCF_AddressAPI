@@ -8,6 +8,13 @@
 			"problemMatcher": [],
 			"label": "npm: build",
 			"detail": "pcf-scripts build"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "npm: start",
+			"detail": "pcf-scripts start"
 		}
 	]
 }

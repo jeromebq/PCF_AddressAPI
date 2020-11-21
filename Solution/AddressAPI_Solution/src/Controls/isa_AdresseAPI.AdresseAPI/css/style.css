@@ -41,9 +41,8 @@
     color: #000000;
     font-size: 1.0rem;
     height: 2.5rem;
-    width: 100%;
+    width: 95%;
     padding-left: 0.5em;
     padding-right: 0.5em;
     outline: 0 !important;
-    box-sizing: border-box;
 }

@@ -19,7 +19,12 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
     
     private _city: string;
 
-	private _postcode: string;
+    private _postcode: string;
+    
+    private _name: string;
+
+    private _currentSelectedItem : number;
+    
 	
 	/**
 	 * Empty constructor.
@@ -40,19 +45,25 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 	public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement)
 	{
 		this._context = context;
-		this._notifyOutputChanged = notifyOutputChanged;
+        this._notifyOutputChanged = notifyOutputChanged;
+        this._currentSelectedItem = -1;
 		
 		if (this._context.parameters.address_line_1.raw) 
 			this._address_line_1 = this._context.parameters.address_line_1.raw;
-			
+        
+        if(this._context.parameters.address_line_1.attributes?.LogicalName)
+            this._name = this._context.parameters.address_line_1.attributes?.LogicalName;
+        else
+            this._name = "";
+            
         this._value = this._address_line_1;
 
         this.listElement = document.createElement("div");
-        this.listElement.setAttribute("id", "adresseList");
+        this.listElement.setAttribute("id", this._name +"_adresseList" );
         this.listElement.setAttribute("class", "autocomplete-items");
 
         this.inputElement = document.createElement("input");
-        this.inputElement.setAttribute("id", "search_field");
+        this.inputElement.setAttribute("id", this._name +"_search_field");
         this.inputElement.setAttribute("type", "text");
         this.inputElement.setAttribute("class", "InputAddress");
         //this.inputElement.setAttribute("value", "");
@@ -75,17 +86,53 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         
         container.appendChild(this.inputElement);
         container.appendChild(this.listElement);
+
+        document.addEventListener('keydown', (event) => {
+			// if(document.activeElement && document.activeElement.id != this.listElement.id)
+				//this.listElement.hidden = true; 
+            if(event.key == 'Escape' || (event.key == 'Enter' && this._currentSelectedItem == -1) )
+            {
+                this.listElement.hidden = true;
+                this._address_line_1 = this.inputElement.value;
+                this._notifyOutputChanged();
+            }
+			//keyCode = 27 et 13
+				
+		});
         
         $(document).bind('IssuesReceived', this.selectValue.bind(this));
 	}
 
 
-	private onKeyUp(event: Event): void {
+	private onKeyUp(event: KeyboardEvent): void {
+
+        
+		if (event.key == 'ArrowDown' || event.key == 'ArrowUp')
+		{
+			event.key == 'ArrowDown' ? this.navigateOptions(true) : this.navigateOptions(false);
+			return;
+			//navigateOptions
+		}
+
+		//event.key == 'Enter' || 
+		if (event.key == 'Enter' && this._currentSelectedItem != -1){
+			this.selectOption(this._currentSelectedItem);
+			return;
+		}
+			
+
+        if (event.key == 'Escape')
+        {
+            this._address_line_1 = this.inputElement.value;
+            this._notifyOutputChanged();
+            return;
+        }
+            
 
         this._value = this.inputElement.value;
         var url = 'https://api-adresse.data.gouv.fr/search/?q=' + encodeURIComponent(this._value);
         var key: any;
-
+        var self = this;
         $.getJSON(
             url
         ).done(function (info) {
@@ -94,8 +141,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
             if (info && info.features) {
 
 
-                (<HTMLDivElement>document.getElementById("adresseList")).innerHTML = "";
-                (<HTMLDivElement>document.getElementById("adresseList")).hidden = false;
+                (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).innerHTML = "";
+                (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).hidden = false;
 
                 for (key in info.features) {
 
@@ -106,9 +153,9 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
                         newDiv.textContent = info.features[key].properties.label;
                         newDiv.addEventListener("click", function () {
                             /*insert the value for the autocomplete text field:*/
-                            (<HTMLInputElement>document.getElementById("search_field")).value = this.getElementsByTagName("input")[0].value;                       
-                            (<HTMLDivElement>document.getElementById("adresseList")).innerHTML = this.getElementsByTagName("input")[0].id;
-                            (<HTMLDivElement>document.getElementById("adresseList")).hidden = true;
+                            (<HTMLInputElement>document.getElementById(self._name +"_search_field")).value = this.getElementsByTagName("input")[0].value;                       
+                            (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).innerHTML = this.getElementsByTagName("input")[0].id;
+                            (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).hidden = true;
                             //divAdresseList.innerHTML = this.getElementsByTagName("input")[0].id;
                             //divAdresseList.hidden = true;
                             $(document).trigger('IssuesReceived');
@@ -122,7 +169,7 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
                         newOptionTest.setAttribute("id", info.features[key].properties.name + "_" + info.features[key].properties.city + "_" + info.features[key].properties.postcode);
                         newDiv.appendChild(newOptionTest);
                         //divAdresseList.appendChild(newDiv);
-                        (<HTMLDivElement>document.getElementById("adresseList")).appendChild(newDiv);
+                        (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).appendChild(newDiv);
 
                     }
 
@@ -135,7 +182,7 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 
 
     public selectValue(): void {
-        let data = (<HTMLDataListElement>document.getElementById("adresseList")).innerHTML;
+        let data = (<HTMLDataListElement>document.getElementById(this._name +"_adresseList" )).innerHTML;
         if (!data.startsWith("<div")) {
             let dataArray = data.split('_');
             if (dataArray.length = 3) {
@@ -184,5 +231,57 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 	public destroy(): void
 	{
 		// Add code to cleanup control if necessary
-	}
+    }
+    
+    private navigateOptions(down : boolean)
+	{
+		if(this.listElement.hidden == true)
+			return;
+
+		var options = this.listElement.childNodes;
+		if(down){
+			if(this._currentSelectedItem == -1){
+				(<HTMLInputElement>options[0]).style.backgroundColor =  "#e9e9e9" ;
+				this._currentSelectedItem= 0;
+			}
+			else if(this._currentSelectedItem != options.length-1)
+			{
+				 (<HTMLInputElement>options[this._currentSelectedItem]).style.backgroundColor =  "#fff" ;
+				 (<HTMLInputElement>options[this._currentSelectedItem+1]).style.backgroundColor =  "#e9e9e9" ;
+				 this._currentSelectedItem++;
+			}
+		}else{
+			if(this._currentSelectedItem == -1){
+				(<HTMLInputElement>options[options.length-1]).style.backgroundColor =  "#e9e9e9" ;
+				this._currentSelectedItem= options.length-1;
+			}
+			else if(this._currentSelectedItem != 0){
+				(<HTMLInputElement>options[this._currentSelectedItem]).style.backgroundColor =  "#fff" ;
+				(<HTMLInputElement>options[this._currentSelectedItem-1]).style.backgroundColor =  "#e9e9e9" ;
+				this._currentSelectedItem--;
+			}
+		}
+
+ 	}
+
+
+	private selectOption(index : number) : void{
+		if(this.listElement.hidden == true)
+		return;
+
+		var options = this.listElement.childNodes;
+
+		if(index >= 0 && index < options.length)
+		{
+			var tempValue = (<HTMLInputElement>(<HTMLInputElement>options[index]).childNodes[1]).value;
+			var tempID =(<HTMLInputElement>(<HTMLInputElement>options[index]).childNodes[1]).id;
+			this.inputElement.value = tempValue;
+			this.listElement.innerHTML = tempID;
+			this.listElement.hidden = true;
+			this._currentSelectedItem == -1
+			this.selectValue();
+		}
+
+    }
+    
 }
