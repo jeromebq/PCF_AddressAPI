@@ -24,6 +24,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
     private _name: string;
 
     private _currentSelectedItem : number;
+
+    private elementHover : boolean;
     
 	
 	/**
@@ -47,6 +49,7 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 		this._context = context;
         this._notifyOutputChanged = notifyOutputChanged;
         this._currentSelectedItem = -1;
+        this.elementHover = false;
 		
 		if (this._context.parameters.address_line_1.raw) 
 			this._address_line_1 = this._context.parameters.address_line_1.raw;
@@ -81,8 +84,15 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         this.inputElement.addEventListener("focusout", () => {
             this.inputElement.className = "InputAddress";
             if (this.inputElement.value == "") this.inputElement.value = "---";
-        });
+        });      
 
+        container.addEventListener("focusout", () => {
+            if(!this.elementHover){
+                this.listElement.hidden = true;
+                this._address_line_1 = this.inputElement.value;
+                this._notifyOutputChanged();
+            }
+        });
         
         container.appendChild(this.inputElement);
         container.appendChild(this.listElement);
@@ -136,7 +146,6 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         $.getJSON(
             url
         ).done(function (info) {
-            console.log("Test ok");
 
             if (info && info.features) {
 
@@ -161,7 +170,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
                             $(document).trigger('IssuesReceived');
 
                         });
-
+                        newDiv.addEventListener("mouseover", function () {self.elementHover = true;})
+                        newDiv.addEventListener("mouseout", function () {self.elementHover = false;})
                         let newOptionTest: HTMLInputElement;
                         newOptionTest = document.createElement("input");
                         newOptionTest.setAttribute("type", "hidden");
