@@ -25,8 +25,7 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 
     private _currentSelectedItem : number;
 
-    private elementHover : boolean;
-    
+    private elementHover : boolean;    
 	
 	/**
 	 * Empty constructor.
@@ -90,7 +89,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
             if(!this.elementHover){
                 this.listElement.hidden = true;
                 this._address_line_1 = this.inputElement.value;
-                this._notifyOutputChanged();
+                if(this._address_line_1 != "")
+                    this._notifyOutputChanged();
             }
         });
         
@@ -104,7 +104,9 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
             {
                 this.listElement.hidden = true;
                 this._address_line_1 = this.inputElement.value;
-                this._notifyOutputChanged();
+
+                if(this._address_line_1 != "")
+                    this._notifyOutputChanged();
             }
 			//keyCode = 27 et 13
 				
@@ -134,7 +136,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         if (event.key == 'Escape')
         {
             this._address_line_1 = this.inputElement.value;
-            this._notifyOutputChanged();
+            if(this._address_line_1 != "")
+                this._notifyOutputChanged();
             return;
         }
             
@@ -196,11 +199,16 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         if (!data.startsWith("<div")) {
             let dataArray = data.split('_');
             if (dataArray.length = 3) {
-                this._value = dataArray[0];
-                this._address_line_1 = dataArray[0];
-                this._city = dataArray[1];
-                this._postcode = dataArray[2];
-                this._notifyOutputChanged();
+                if(dataArray[0] != "")
+                {
+                    this._value = dataArray[0];
+                    this._address_line_1 = dataArray[0];
+                    this.inputElement.value = dataArray[0];
+                    this._city = dataArray[1];
+                    this._postcode = dataArray[2];
+                    this._notifyOutputChanged();
+                }
+                
             }
         }        
     }
