@@ -1,6 +1,16 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as $ from "jquery";
 
+interface Dic {
+    [key: string]: Provider
+}
+
+interface Provider {
+    name: string,
+    city: string,
+    postcode: string
+}
+
 export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
 	private _context: ComponentFramework.Context<IInputs>;
@@ -25,7 +35,9 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
 
     private _currentSelectedItem : number;
 
-    private elementHover : boolean;    
+    private elementHover : boolean; 
+
+    private datas : Dic;
 	
 	/**
 	 * Empty constructor.
@@ -49,6 +61,7 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         this._notifyOutputChanged = notifyOutputChanged;
         this._currentSelectedItem = -1;
         this.elementHover = false;
+        this.datas = {};
 		
 		if (this._context.parameters.address_line_1.raw) 
 			this._address_line_1 = this._context.parameters.address_line_1.raw;
@@ -179,7 +192,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
                         newOptionTest = document.createElement("input");
                         newOptionTest.setAttribute("type", "hidden");
                         newOptionTest.setAttribute("value", info.features[key].properties.label);
-                        newOptionTest.setAttribute("id", info.features[key].properties.name + "_" + info.features[key].properties.city + "_" + info.features[key].properties.postcode);
+                        newOptionTest.setAttribute("id", info.features[key].properties.id);
+                        self.datas[info.features[key].properties.id] = info.features[key].properties;
                         newDiv.appendChild(newOptionTest);
                         //divAdresseList.appendChild(newDiv);
                         (<HTMLDivElement>document.getElementById(self._name +"_adresseList" )).appendChild(newDiv);
@@ -197,19 +211,18 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
     public selectValue(): void {
         let data = (<HTMLDataListElement>document.getElementById(this._name +"_adresseList" )).innerHTML;
         if (!data.startsWith("<div")) {
-            let dataArray = data.split('_');
-            if (dataArray.length = 3) {
-                if(dataArray[0] != "")
-                {
-                    this._value = dataArray[0];
-                    this._address_line_1 = dataArray[0];
-                    this.inputElement.value = dataArray[0];
-                    this._city = dataArray[1];
-                    this._postcode = dataArray[2];
-                    this._notifyOutputChanged();
-                }
-                
+            if(data != "" && this.datas[data])
+            {
+                var obj = this.datas[data]
+                this._value = obj.name;
+                this._address_line_1 = obj.name;
+                this.inputElement.value = obj.name;
+                this._city = obj.city;
+                this._postcode = obj.postcode;
+                this._notifyOutputChanged();
             }
+                
+            // }
         }        
     }
 
