@@ -340,3 +340,60 @@ Packing C:\Users\jbecu\Documents\PCF\PCF_AddressAPI\AddressAPI_Solution\obj\Debu
 2020-12-12 11:35:25.543 - Info	
 Unmanaged Pack complete.
 
+2020-12-17 20:43:55.360 - Info	
+Packing C:\Users\jbecu\Documents\PCF\PCF_AddressAPI\AddressAPI_Solution\obj\Debug\Metadata to bin\Debug\AddressAPI_Solution.zip
+
+2020-12-17 20:43:55.381 - Info	Processing Component: Entities
+2020-12-17 20:43:55.386 - Info	Processing Component: Roles
+2020-12-17 20:43:55.393 - Info	Processing Component: Workflows
+2020-12-17 20:43:55.393 - Info	Processing Component: FieldSecurityProfiles
+2020-12-17 20:43:55.394 - Info	Processing Component: Templates
+2020-12-17 20:43:55.395 - Info	Processing Component: EntityMaps
+2020-12-17 20:43:55.395 - Info	Processing Component: EntityRelationships
+2020-12-17 20:43:55.397 - Info	Processing Component: OrganizationSettings
+2020-12-17 20:43:55.404 - Info	Processing Component: optionsets
+2020-12-17 20:43:55.404 - Info	Processing Component: CustomControls
+2020-12-17 20:43:55.413 - Info	 - AdresseAPI.AdresseAPI
+2020-12-17 20:43:55.423 - Info	Processing Component: SolutionPluginAssemblies
+2020-12-17 20:43:55.425 - Info	Processing Component: EntityDataProviders
+2020-12-17 20:43:55.529 - Info	
+Unmanaged Pack complete.
+
+2020-12-17 20:58:02.837 - Info	
+Packing C:\Users\jbecu\Documents\PCF\PCF_AddressAPI\AddressAPI_Solution\obj\Debug\Metadata to bin\Debug\AddressAPI_Solution.zip
+
+2020-12-17 20:58:02.855 - Info	Processing Component: Entities
+2020-12-17 20:58:02.861 - Info	Processing Component: Roles
+2020-12-17 20:58:02.871 - Info	Processing Component: Workflows
+2020-12-17 20:58:02.872 - Info	Processing Component: FieldSecurityProfiles
+2020-12-17 20:58:02.872 - Info	Processing Component: Templates
+2020-12-17 20:58:02.873 - Info	Processing Component: EntityMaps
+2020-12-17 20:58:02.873 - Info	Processing Component: EntityRelationships
+2020-12-17 20:58:02.878 - Info	Processing Component: OrganizationSettings
+2020-12-17 20:58:02.882 - Info	Processing Component: optionsets
+2020-12-17 20:58:02.883 - Info	Processing Component: CustomControls
+2020-12-17 20:58:02.898 - Info	 - AdresseAPI.AdresseAPI
+2020-12-17 20:58:02.906 - Info	Processing Component: SolutionPluginAssemblies
+2020-12-17 20:58:02.908 - Info	Processing Component: EntityDataProviders
+2020-12-17 20:58:02.977 - Info	
+Unmanaged Pack complete.
+
+2020-12-17 21:18:46.166 - Info	
+Packing C:\Users\jbecu\Documents\PCF\PCF_AddressAPI\AddressAPI_Solution\obj\Debug\Metadata to bin\Debug\AddressAPI_Solution.zip
+
+2020-12-17 21:18:46.185 - Info	Processing Component: Entities
+2020-12-17 21:18:46.196 - Info	Processing Component: Roles
+2020-12-17 21:18:46.200 - Info	Processing Component: Workflows
+2020-12-17 21:18:46.200 - Info	Processing Component: FieldSecurityProfiles
+2020-12-17 21:18:46.200 - Info	Processing Component: Templates
+2020-12-17 21:18:46.205 - Info	Processing Component: EntityMaps
+2020-12-17 21:18:46.205 - Info	Processing Component: EntityRelationships
+2020-12-17 21:18:46.208 - Info	Processing Component: OrganizationSettings
+2020-12-17 21:18:46.215 - Info	Processing Component: optionsets
+2020-12-17 21:18:46.216 - Info	Processing Component: CustomControls
+2020-12-17 21:18:46.231 - Info	 - AdresseAPI.AdresseAPI
+2020-12-17 21:18:46.239 - Info	Processing Component: SolutionPluginAssemblies
+2020-12-17 21:18:46.241 - Info	Processing Component: EntityDataProviders
+2020-12-17 21:18:46.334 - Info	
+Unmanaged Pack complete.
+

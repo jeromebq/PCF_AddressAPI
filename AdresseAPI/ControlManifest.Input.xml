@@ -5,6 +5,9 @@
     <property name="address_line_1" display-name-key="address_line_1" description-key="address_line_1" of-type="SingleLine.Text" usage="bound" required="true" />
     <property name="city" display-name-key="city" description-key="city" of-type="SingleLine.Text" usage="bound" required="true" />
     <property name="postcode" display-name-key="postcode" description-key="postcode" of-type="SingleLine.Text" usage="bound" required="true" />
+    <!-- <property name="longitude" display-name-key="longitude" description-key="longitude" of-type="FP" usage="bound" required="true" />
+    <property name="latitude" display-name-key="latitude" description-key="latitude" of-type="FP" usage="bound" required="true" /> -->
+    <property name="country" display-name-key="country" description-key="country" of-type="SingleLine.Text" usage="bound" required="true" />
     <resources>
       <code path="index.ts" order="1" />
       <css path="css/style.css" order="1" />

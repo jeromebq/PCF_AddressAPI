@@ -9,6 +9,8 @@ interface Provider {
     name: string,
     city: string,
     postcode: string
+    // x : number,
+    // y: number
 }
 
 export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, IOutputs> {
@@ -38,6 +40,12 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
     private elementHover : boolean; 
 
     private datas : Dic;
+
+    private _country: string;
+
+    // private _latitude: number;
+
+    // private _longitude: number;
 	
 	/**
 	 * Empty constructor.
@@ -72,6 +80,9 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
             this._name = "";
             
         this._value = this._address_line_1;
+
+
+        this._country = this._context.parameters.country.raw ? this._context.parameters.country.raw : "FRANCE";
 
         this.listElement = document.createElement("div");
         this.listElement.setAttribute("id", this._name +"_adresseList" );
@@ -219,6 +230,8 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
                 this.inputElement.value = obj.name;
                 this._city = obj.city;
                 this._postcode = obj.postcode;
+                // this._latitude = obj.x;
+                // this._longitude = obj.y;
                 this._notifyOutputChanged();
             }
                 
@@ -251,7 +264,10 @@ export class AdresseAPI implements ComponentFramework.StandardControl<IInputs, I
         return {
             address_line_1: this._address_line_1,
             city: this._city,
-            postcode: this._postcode
+            postcode: this._postcode,
+            // latitude: this._latitude,
+            // longitude: this._longitude,
+            country: this._country
         }
 	}
 
