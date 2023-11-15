@@ -9,7 +9,9 @@
 # output directory
 /out
 
-# MS Build 
+# msbuild output directories
+/bin
 /obj
-.vscode/tasks.json
-.vscode/tasks.json
+
+# MSBuild Binary and Structured Log
+*.binlog
